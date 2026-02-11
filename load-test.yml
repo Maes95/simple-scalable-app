@@ -1,0 +1,26 @@
+config:
+  target: "http://localhost:8080"
+  environments:
+    check:
+      phases:
+        - duration: 10
+          arrivalRate: 1
+          name: "Check URL is responding"
+    loadtest:
+      phases:
+        - duration: 60
+          arrivalRate: 10
+          name: "Warm up"
+        - duration: 120
+          arrivalRate: 50
+          name: "Ramp up load"
+        - duration: 180
+          arrivalRate: 100
+          name: "Sustained load"
+  http:
+    timeout: 10
+scenarios:
+  - name: "Get Server IP"
+    flow:
+      - get:
+          url: "/"
